@@ -1,15 +1,16 @@
 import { Router } from "express";
 import {
-  createGenre,
-  deleteGenre,
-  getAllGenres,
-  updateGenre,
-} from "../controllers/genre.controllers";
+  createUser,
+  deleteUser,
+  getAllUsers,
+  updateUser,
+} from "../controllers/user.controllers";
 
-const genreRouter = Router();
-genreRouter.get("/", getAllGenres);
-genreRouter.post("/:movieId", createGenre);
-genreRouter.patch("/:movieId", updateGenre);
-genreRouter.delete("/:genreId", deleteGenre);
+const userRouter = Router();
 
-export default genreRouter;
+userRouter.get("/", getAllUsers);
+userRouter.post("/", createUser);
+userRouter.patch("/:userId", updateUser);
+userRouter.delete("/:userId", deleteUser);
+
+export default userRouter;
