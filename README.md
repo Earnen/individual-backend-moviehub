@@ -37,13 +37,12 @@ The Genres collection offers a wide range of movie genres for users to choose fr
 
 ## 📝 Branches and Phases
 
-Our project development is structured into five distinct phases:
+Our project development is structured into four main branches:
 
-- **Main Branch:** For project setup and this delightful README file.
-- **Branch 01_node_express:** The foundational branch for setting up our server using the versatile Express framework.
-- **Branch 02_mongoose_express:** Where we seamlessly integrate Mongoose to connect our server to a MongoDB database.
-- **Branch 03_prisma:** A refactor using Prisma for enhanced database interactions.
-- **Branch 04_prisma_postgresql:** Building on Prisma, this phase sees the integration of PostgreSQL as our database solution.
+- **Main Branch:** This branch contains the README file you're currently reading.
+- **Branch 01_mongoose_express:** Here, we leverage Mongoose to establish a connection between the server and a MongoDB database.
+- **Branch 02_prisma_mongoDB:** A significant refactor using Prisma for database interactions, continuing to utilize MongoDB.
+- **Branch 03_prisma_postgresql:** Building on Prisma, this phase integrates PostgreSQL as the primary database solution.
 
 Feel free to explore this repository to gain insights into database management. Don't forget to create your own .env files based on the provided .env.example, and ensure you install the necessary modules for the stacks used.
 
