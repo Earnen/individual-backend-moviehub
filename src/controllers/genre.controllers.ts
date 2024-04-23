@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
-import GenreModel from "../models/genre.models";
-import MovieModel from "../models/movie.models";
+import prisma from "../db/client";
 
 export const getAllGenres = async (req: Request, res: Response) => {
   try {
-    const allGenres = await GenreModel.find();
+    const allGenres = await prisma.genres.findMany();
     res.status(201).send(allGenres);
   } catch (error) {
     res.status(400).send(error);
@@ -14,14 +13,11 @@ export const getAllGenres = async (req: Request, res: Response) => {
 export const createGenre = async (req: Request, res: Response) => {
   const { name } = req.body;
   const { movieId } = req.params;
-
   try {
-    const newGenre = await GenreModel.create({ name });
-    await MovieModel.findByIdAndUpdate(
-      { _id: movieId },
-      { $push: { genre: newGenre._id } }
-    );
-    res.status(201).send(newGenre);
+    const genre = await prisma.genres.create({
+      data: { name, movie: { connect: { id: movieId } } },
+    });
+    res.status(201).send(genre);
   } catch (error) {
     res.status(400).send(error);
   }
@@ -31,11 +27,10 @@ export const updateGenre = async (req: Request, res: Response) => {
   const { name } = req.body;
   const { genreId } = req.params;
   try {
-    const genreUpdated = await GenreModel.findByIdAndUpdate(
-      { _id: genreId },
-      { name },
-      { new: true }
-    );
+    const genreUpdated = await prisma.genres.update({
+      where: { id: genreId },
+      data: { name },
+    });
     res.status(201).send(genreUpdated);
   } catch (error) {
     res.status(400).send(error);
@@ -45,7 +40,9 @@ export const updateGenre = async (req: Request, res: Response) => {
 export const deleteGenre = async (req: Request, res: Response) => {
   const { genreId } = req.params;
   try {
-    const genreDeleted = await GenreModel.findByIdAndDelete({ _id: genreId });
+    const genreDeleted = await prisma.genres.delete({
+      where: { id: genreId },
+    });
     res.status(201).send(genreDeleted);
   } catch (error) {
     res.status(400).send(error);
